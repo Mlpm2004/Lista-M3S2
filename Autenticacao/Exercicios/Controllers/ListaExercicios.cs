@@ -110,6 +110,7 @@ namespace Exercicios.Controllers
             return Ok(tokenString);
         }
         // Exercicio8
+        [Authorize(Roles = "Administrador")]
         [HttpPost("Exercicio8 - Nome Colaborador , Usuário,  Senha")]
         public ActionResult<string> AcessoAdministrativo(string nome, string usuario, string senha)
         {
@@ -117,7 +118,6 @@ namespace Exercicios.Controllers
             {
                 return Ok("Erro no campo usuário");
             }
-
             if (usuario.ToLower().Equals("admin") && !senha.ToLower().Equals("123456"))
             {
                 return Ok("Erro no campo senha");
@@ -130,7 +130,7 @@ namespace Exercicios.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario), new Claim(ClaimTypes.Role, "Administrador") }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 Issuer = JwtConfiguracao.Issuer,
                 Audience = JwtConfiguracao.Audience,
