@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\wamp\\www\\DEVinHouse\\M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj": {}
+    "C:\\wamp\\www\\DEVinHouse\\M3S2-1\\listaExercicios\\Lista-M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj": {}
   },
   "projects": {
-    "C:\\wamp\\www\\DEVinHouse\\M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj": {
+    "C:\\wamp\\www\\DEVinHouse\\M3S2-1\\listaExercicios\\Lista-M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\wamp\\www\\DEVinHouse\\M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj",
+        "projectUniqueName": "C:\\wamp\\www\\DEVinHouse\\M3S2-1\\listaExercicios\\Lista-M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj",
         "projectName": "Exercicios",
-        "projectPath": "C:\\wamp\\www\\DEVinHouse\\M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj",
+        "projectPath": "C:\\wamp\\www\\DEVinHouse\\M3S2-1\\listaExercicios\\Lista-M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj",
         "packagesPath": "C:\\Users\\55489\\.nuget\\packages\\",
-        "outputPath": "C:\\wamp\\www\\DEVinHouse\\M3S2\\Autenticacao\\Exercicios\\obj\\",
+        "outputPath": "C:\\wamp\\www\\DEVinHouse\\M3S2-1\\listaExercicios\\Lista-M3S2\\Autenticacao\\Exercicios\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\55489\\AppData\\Roaming\\NuGet\\NuGet.Config",

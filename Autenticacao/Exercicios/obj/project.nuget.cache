@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YtfhhpOB3fNYGzS8eZ7F0ynaGUp1YrDLuckeQ/TLmFIDkNQKaMS6QJj90akynk6QwrSom+pR0UANAHVvjIOMng==",
+  "dgSpecHash": "L2scnXgWvIjN1Lq2kpSAQewkKAz1pPZXtZKrsDVhaU4klaq+2MU23DFwS9somEha5lI2k1yA/g/EcdXXrVqVrw==",
   "success": true,
-  "projectFilePath": "C:\\wamp\\www\\DEVinHouse\\M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj",
+  "projectFilePath": "C:\\wamp\\www\\DEVinHouse\\M3S2-1\\listaExercicios\\Lista-M3S2\\Autenticacao\\Exercicios\\Exercicios.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\55489\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\55489\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

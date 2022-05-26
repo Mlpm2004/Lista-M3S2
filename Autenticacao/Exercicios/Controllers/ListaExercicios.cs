@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using Exercicios.Estatico;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exercicios.Controllers
 {
@@ -73,6 +78,75 @@ namespace Exercicios.Controllers
             return Ok("API KEY É VÁLIDA : "+ requiredHeader);
         }
 
- 
+        [HttpPost("Exercicio7")]
+        public ActionResult<string> Exercicio7(string usuario, string senha)
+        {
+            if (!usuario.ToLower().Equals("admin") && !usuario.ToLower().Equals("contador"))
+            {
+                return Ok("Erro no campo usuário");
+            }
+
+            if (usuario.ToLower().Equals("admin") && !senha.ToLower().Equals("123456"))
+            {
+                return Ok("Erro no campo senha");
+            }
+            if (usuario.ToLower().Equals("contador") && !senha.ToLower().Equals("987654"))
+            {
+                return Ok("Erro no campo senha");
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario) }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                Issuer = JwtConfiguracao.Issuer,
+                Audience = JwtConfiguracao.Audience,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(JwtConfiguracao.Key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return Ok(tokenString);
+        }
+        // Exercicio8
+        [HttpPost("Exercicio8 - Nome Colaborador , Usuário,  Senha")]
+        public ActionResult<string> AcessoAdministrativo(string nome, string usuario, string senha)
+        {
+            if (!usuario.ToLower().Equals("admin") && !usuario.ToLower().Equals("contador"))
+            {
+                return Ok("Erro no campo usuário");
+            }
+
+            if (usuario.ToLower().Equals("admin") && !senha.ToLower().Equals("123456"))
+            {
+                return Ok("Erro no campo senha");
+            }
+            if (usuario.ToLower().Equals("contador") && !senha.ToLower().Equals("987654"))
+            {
+                return Ok("Erro no campo senha");
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario) }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                Issuer = JwtConfiguracao.Issuer,
+                Audience = JwtConfiguracao.Audience,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(JwtConfiguracao.Key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return Ok(tokenString);
+        }
+        [HttpGet]
+        [Route("Exercicio10")]
+        [AllowAnonymous]
+        public ActionResult<string> LiberadoTodosPerfil()
+        {
+            return Ok("Acesso utilizado para todos os Perfis");
+        }
     }
 }
