@@ -141,6 +141,39 @@ namespace Exercicios.Controllers
 
             return Ok(tokenString);
         }
+
+        // Exercicio9
+        [Authorize(Roles = "Contador")]
+        [HttpPost("Exercicio8 - Nome Colaborador , Usuário,  Senha")]
+        public ActionResult<string> GerarImpostoDeRenda(string nome, string usuario, string senha)
+        {
+            if (!usuario.ToLower().Equals("admin") && !usuario.ToLower().Equals("contador"))
+            {
+                return Ok("Erro no campo usuário");
+            }
+            if (usuario.ToLower().Equals("admin") && !senha.ToLower().Equals("123456"))
+            {
+                return Ok("Erro no campo senha");
+            }
+            if (usuario.ToLower().Equals("contador") && !senha.ToLower().Equals("987654"))
+            {
+                return Ok("Erro no campo senha");
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario), new Claim(ClaimTypes.Role, "Contador") }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                Issuer = JwtConfiguracao.Issuer,
+                Audience = JwtConfiguracao.Audience,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(JwtConfiguracao.Key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return Ok(tokenString);
+        }
         [HttpGet]
         [Route("Exercicio10")]
         [AllowAnonymous]
