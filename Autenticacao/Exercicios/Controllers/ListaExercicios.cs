@@ -151,9 +151,9 @@ namespace Exercicios.Controllers
         }
 
         // Exercicio9
-        [Authorize(Roles = "Contador")]
+       
         [HttpPost("Exercicio9")]
-        public ActionResult<string> GerarImpostoDeRenda(string nome, string usuario, string senha)
+        public ActionResult<string> GerarImpostoDeRenda(string usuario, string senha)
         {
             if (usuario.ToLower().Equals("admin") && senha.ToLower().Equals("123456"))
             {
