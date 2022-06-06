@@ -14,7 +14,7 @@ namespace Exercicios.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class ListaExercicios : ControllerBase
+    public class ListaExerciciosController : ControllerBase
     {
 
         /// <summary>
@@ -98,7 +98,8 @@ namespace Exercicios.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", usuario) ,
+                                                               new Claim(ClaimTypes.Role, "Administrador")}),
                 Expires = DateTime.UtcNow.AddHours(1),
                 Issuer = JwtConfiguracao.Issuer,
                 Audience = JwtConfiguracao.Audience,
@@ -111,10 +112,22 @@ namespace Exercicios.Controllers
         }
         // Exercicio8
         [Authorize(Roles = "Administrador")]
-        [HttpPost("Exercicio8 - Nome Colaborador , Usuário,  Senha")]
+        [HttpGet]
+        public ActionResult<string> AutenticadoSucessoAdmin()
+        {
+            return Ok("Autencição feita com sucesso");
+        }
+
+        [HttpPost("Exercicio8")]
         public ActionResult<string> AcessoAdministrativo(string nome, string usuario, string senha)
         {
-            if (!usuario.ToLower().Equals("admin") && !usuario.ToLower().Equals("contador"))
+            if (usuario.ToLower().Equals("contador") && senha.ToLower().Equals("987654"))
+            {
+                var result = new ObjectResult(new { Resposta = "Perfil sem acesso a esta área" });
+                result.StatusCode = 403;
+                return result;
+            }
+            if (!usuario.ToLower().Equals("admin") )
             {
                 return Ok("Erro no campo usuário");
             }
@@ -122,11 +135,6 @@ namespace Exercicios.Controllers
             {
                 return Ok("Erro no campo senha");
             }
-            if (usuario.ToLower().Equals("contador") && !senha.ToLower().Equals("987654"))
-            {
-                return Ok("Erro no campo senha");
-            }
-
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -139,21 +147,25 @@ namespace Exercicios.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(tokenString);
+            return Ok("Criado Usuário : "+nome);
         }
 
         // Exercicio9
         [Authorize(Roles = "Contador")]
-        [HttpPost("Exercicio8 - Nome Colaborador , Usuário,  Senha")]
+        [HttpPost("Exercicio9")]
         public ActionResult<string> GerarImpostoDeRenda(string nome, string usuario, string senha)
         {
-            if (!usuario.ToLower().Equals("admin") && !usuario.ToLower().Equals("contador"))
+            if (usuario.ToLower().Equals("admin") && senha.ToLower().Equals("123456"))
+            {
+                {
+                    var result = new ObjectResult(new { Resposta = "Perfil sem acesso a esta área" });
+                    result.StatusCode = 403;
+                    return result;
+                }
+            }
+            if (!usuario.ToLower().Equals("contador"))
             {
                 return Ok("Erro no campo usuário");
-            }
-            if (usuario.ToLower().Equals("admin") && !senha.ToLower().Equals("123456"))
-            {
-                return Ok("Erro no campo senha");
             }
             if (usuario.ToLower().Equals("contador") && !senha.ToLower().Equals("987654"))
             {
@@ -172,7 +184,7 @@ namespace Exercicios.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(tokenString);
+            return Ok("Valor : 1500.00");
         }
         [HttpGet]
         [Route("Exercicio10")]
